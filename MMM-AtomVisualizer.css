@@ -1,0 +1,197 @@
+.MMM-AtomVisualizer .mmm-atom-visualizer {
+  --atom-color-primary: rgba(120, 200, 255, 0.98);
+  --atom-color-secondary: rgba(160, 255, 230, 0.98);
+  --atom-shell-color: rgba(210, 230, 255, 0.28);
+  --atom-shell-glow: 0 0 10px rgba(100, 180, 255, 0.15);
+  --atom-nucleus-bg: radial-gradient(
+    circle at 28% 24%,
+    rgba(255, 230, 155, 1),
+    rgba(255, 132, 74, 0.98)
+  );
+  --atom-glow: 0 0 16px rgba(120, 200, 255, 0.45);
+  --atom-depth-translate-z: 0px;
+  --atom-nucleus-glow: 0 0 10px rgba(255, 170, 110, 0.3);
+  --atom-electron-shadow:
+    inset -2px -2px 4px rgba(12, 36, 70, 0.35),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.45), var(--atom-glow);
+  --atom-electron-render-scale: 1;
+
+  /* Default values for JS-injected variables to satisfy linter */
+  --atom-size: 240px;
+  --nucleus-size: 50px;
+  --electron-size: 8px;
+  --rotation-duration: 20s;
+  --shell-z-rotation: 0deg;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.MMM-AtomVisualizer .atom-stage {
+  position: relative;
+  width: var(--atom-size);
+  height: var(--atom-size);
+  perspective: 1300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.MMM-AtomVisualizer .atom-rotation-layer {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: translateZ(var(--atom-depth-translate-z));
+}
+
+.MMM-AtomVisualizer .atom-stage--rotate {
+  animation: atom-stage-spin var(--rotation-duration) linear infinite;
+}
+
+.MMM-AtomVisualizer .atom-shell {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotateZ(var(--shell-z-rotation));
+  border: 1px solid var(--atom-shell-color);
+  border-radius: 50%;
+  display: block;
+  box-sizing: border-box;
+  box-shadow: var(--atom-shell-glow);
+}
+
+.MMM-AtomVisualizer .atom-electron-track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.MMM-AtomVisualizer .atom-electron-runner {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  animation-name: atom-electron-spin;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.MMM-AtomVisualizer .atom-electron {
+  position: absolute;
+  top: calc(var(--electron-size) * var(--atom-electron-render-scale) * -0.5);
+  left: 50%;
+  width: calc(var(--electron-size) * var(--atom-electron-render-scale));
+  height: calc(var(--electron-size) * var(--atom-electron-render-scale));
+  margin-left: calc(
+    var(--electron-size) * var(--atom-electron-render-scale) * -0.5
+  );
+  border-radius: 50%;
+  box-shadow: var(--atom-electron-shadow);
+  background: radial-gradient(
+    circle at 32% 28%,
+    rgba(240, 255, 255, 0.98),
+    var(--atom-color-secondary) 35%,
+    var(--atom-color-primary) 70%,
+    rgba(25, 70, 125, 0.96)
+  );
+}
+
+.MMM-AtomVisualizer .atom-electron::before {
+  content: "";
+  position: absolute;
+  width: 48%;
+  height: 48%;
+  top: 14%;
+  left: 15%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.9),
+    transparent 70%
+  );
+}
+
+.MMM-AtomVisualizer .atom-nucleus {
+  z-index: 3;
+  width: var(--nucleus-size);
+  height: var(--nucleus-size);
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: calc(var(--nucleus-size) * 0.33);
+  font-weight: 700;
+  color: #111;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
+  background: var(--atom-nucleus-bg);
+  box-shadow:
+    inset -8px -9px 16px rgba(90, 55, 30, 0.28),
+    inset 5px 5px 12px rgba(255, 245, 210, 0.35),
+    var(--atom-nucleus-glow);
+}
+
+.MMM-AtomVisualizer .atom-nucleus::before {
+  content: "";
+  position: absolute;
+  width: 52%;
+  height: 52%;
+  top: 10%;
+  left: 14%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.55),
+    rgba(255, 255, 255, 0)
+  );
+}
+
+.MMM-AtomVisualizer .atom-stage {
+  perspective: none;
+}
+
+.MMM-AtomVisualizer .atom-rotation-layer {
+  transform-style: flat;
+  transform: none;
+}
+
+.MMM-AtomVisualizer .atom-details {
+  margin-top: 12px;
+  text-align: center;
+  line-height: 1.35;
+}
+
+.MMM-AtomVisualizer .atom-label {
+  font-size: 1rem;
+  color: #fff;
+}
+
+.MMM-AtomVisualizer .atom-legend {
+  font-size: 0.85rem;
+  color: #c4c9d6;
+}
+
+@keyframes atom-electron-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes atom-stage-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}

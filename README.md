@@ -9,7 +9,15 @@
 ## Installation
 
 ```bash
+cd ~/MagicMirror/modules/
+git clone https://github.com/KristjanESPERANTO/MMM-AtomVisualizer
+```
+
+## Update
+
+```bash
 cd ~/MagicMirror/modules/MMM-AtomVisualizer
+git pull
 ```
 
 ## Configuration

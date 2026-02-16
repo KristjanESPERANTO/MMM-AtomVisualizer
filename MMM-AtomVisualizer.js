@@ -238,6 +238,110 @@ Module.register("MMM-AtomVisualizer", {
     return shells.filter((count) => count > 0);
   },
 
+  createShellElements (shells) {
+    const rotationLayer = document.createElement("div");
+    rotationLayer.className = "atom-rotation-layer";
+    if (this.config.autoRotate) {
+      rotationLayer.classList.add("atom-stage--rotate");
+    }
+
+    const shellCount = shells.length;
+    const maxRadius = this.config.size / 2 - this.config.electronSize * 1.2;
+    const nucleusRadius = this.config.size * this.config.nucleusScale / 2;
+    const orbitSpace = Math.max(14, (maxRadius - nucleusRadius) / Math.max(1, shellCount));
+
+    shells.forEach((electronCount, shellIndex) => {
+      const ring = this.createShellRing(electronCount, shellIndex, nucleusRadius, orbitSpace);
+      rotationLayer.appendChild(ring);
+    });
+
+    return rotationLayer;
+  },
+
+  createShellRing (electronCount, shellIndex, nucleusRadius, orbitSpace) {
+    const ring = document.createElement("div");
+    ring.className = "atom-shell";
+
+    const orbitRadius = nucleusRadius + orbitSpace * (shellIndex + 1);
+    const orbitDiameter = Math.min(this.config.size - this.config.electronSize, orbitRadius * 2);
+
+    ring.style.width = `${orbitDiameter}px`;
+    ring.style.height = `${orbitDiameter}px`;
+    ring.style.setProperty("--shell-z-rotation", `${shellIndex * 24}deg`);
+
+    for (let index = 0; index < electronCount; index += 1) {
+      const angle = 360 / electronCount * index;
+      const track = this.createElectronTrack(angle, shellIndex);
+      ring.appendChild(track);
+    }
+
+    return ring;
+  },
+
+  createElectronTrack (angle, shellIndex) {
+    const track = document.createElement("div");
+    track.className = "atom-electron-track";
+    track.style.transform = `rotate(${angle}deg)`;
+
+    const runner = document.createElement("div");
+    runner.className = "atom-electron-runner";
+    runner.style.animationDuration = `${this.config.electronSpeed + shellIndex * 1.2}s`;
+    runner.style.animationDelay = `${shellIndex * -1.5}s`;
+    if (this.config.mixedOrbitDirections && shellIndex % 2 === 1) {
+      runner.style.animationDirection = "reverse";
+    }
+
+    const electron = document.createElement("div");
+    electron.className = "atom-electron";
+
+    runner.appendChild(electron);
+    track.appendChild(runner);
+
+    return track;
+  },
+
+  createAtomStage (symbol, shells) {
+    const atom = document.createElement("div");
+    atom.className = "atom-stage";
+    atom.style.setProperty("--atom-size", `${this.config.size}px`);
+    atom.style.setProperty("--nucleus-size", `${Math.round(this.config.size * this.config.nucleusScale)}px`);
+    atom.style.setProperty("--electron-size", `${this.config.electronSize}px`);
+    atom.style.setProperty("--rotation-duration", `${this.config.rotationDuration}s`);
+
+    const rotationLayer = this.createShellElements(shells);
+    atom.appendChild(rotationLayer);
+
+    const nucleus = document.createElement("div");
+    nucleus.className = "atom-nucleus";
+    nucleus.innerText = symbol;
+    atom.appendChild(nucleus);
+
+    return atom;
+  },
+
+  createDetailsSection (element, symbol, shells) {
+    const details = document.createElement("div");
+    details.className = "atom-details";
+
+    if (this.config.showLabel) {
+      const label = document.createElement("div");
+      label.className = "atom-label";
+      label.innerText = `${element.name} (${symbol})`;
+      details.appendChild(label);
+    }
+
+    if (this.config.showLegend) {
+      const legend = document.createElement("div");
+      legend.className = "atom-legend";
+      const atomicNumberLabel = this.translate("ATOMIC_NUMBER");
+      const shellsLabel = this.translate("SHELLS");
+      legend.innerText = `${atomicNumberLabel}: ${element.number} · ${shellsLabel}: ${shells.join("-")}`;
+      details.appendChild(legend);
+    }
+
+    return details;
+  },
+
   getDom () {
     const wrapper = document.createElement("div");
     wrapper.className = "mmm-atom-visualizer";
@@ -251,92 +355,11 @@ Module.register("MMM-AtomVisualizer", {
     }
 
     const shells = this.getShellDistribution(element.number);
-
-    const atom = document.createElement("div");
-    atom.className = "atom-stage";
-    atom.style.setProperty("--atom-size", `${this.config.size}px`);
-    atom.style.setProperty("--nucleus-size", `${Math.round(this.config.size * this.config.nucleusScale)}px`);
-    atom.style.setProperty("--electron-size", `${this.config.electronSize}px`);
-    atom.style.setProperty("--rotation-duration", `${this.config.rotationDuration}s`);
-
-    const rotationLayer = document.createElement("div");
-    rotationLayer.className = "atom-rotation-layer";
-    if (this.config.autoRotate) {
-      rotationLayer.classList.add("atom-stage--rotate");
-    }
-
-    const shellCount = shells.length;
-    const maxRadius = this.config.size / 2 - this.config.electronSize * 1.2;
-    const nucleusRadius = this.config.size * this.config.nucleusScale / 2;
-    const orbitSpace = Math.max(14, (maxRadius - nucleusRadius) / Math.max(1, shellCount));
-
-    shells.forEach((electronCount, shellIndex) => {
-      const ring = document.createElement("div");
-      ring.className = "atom-shell";
-
-      const orbitRadius = nucleusRadius + orbitSpace * (shellIndex + 1);
-      const orbitDiameter = Math.min(this.config.size - this.config.electronSize, orbitRadius * 2);
-
-      ring.style.width = `${orbitDiameter}px`;
-      ring.style.height = `${orbitDiameter}px`;
-      ring.style.setProperty("--shell-z-rotation", `${shellIndex * 24}deg`);
-
-      for (let index = 0; index < electronCount; index += 1) {
-        const angle = 360 / electronCount * index;
-        const track = document.createElement("div");
-        track.className = "atom-electron-track";
-
-        track.style.transform = `rotate(${angle}deg)`;
-
-        const runner = document.createElement("div");
-        runner.className = "atom-electron-runner";
-        runner.style.animationDuration = `${this.config.electronSpeed + shellIndex * 1.2}s`;
-        // Use a fixed delay per shell to keep electrons synchronized in their relative spacing
-        runner.style.animationDelay = `${shellIndex * -1.5}s`;
-        if (this.config.mixedOrbitDirections && shellIndex % 2 === 1) {
-          runner.style.animationDirection = "reverse";
-        }
-
-        const electron = document.createElement("div");
-        electron.className = "atom-electron";
-
-        runner.appendChild(electron);
-        track.appendChild(runner);
-        ring.appendChild(track);
-      }
-
-      rotationLayer.appendChild(ring);
-    });
-
-    atom.appendChild(rotationLayer);
-
-    const nucleus = document.createElement("div");
-    nucleus.className = "atom-nucleus";
-    nucleus.innerText = symbol;
-    atom.appendChild(nucleus);
-
+    const atom = this.createAtomStage(symbol, shells);
     wrapper.appendChild(atom);
 
     if (this.config.showLabel || this.config.showLegend) {
-      const details = document.createElement("div");
-      details.className = "atom-details";
-
-      if (this.config.showLabel) {
-        const label = document.createElement("div");
-        label.className = "atom-label";
-        label.innerText = `${element.name} (${symbol})`;
-        details.appendChild(label);
-      }
-
-      if (this.config.showLegend) {
-        const legend = document.createElement("div");
-        legend.className = "atom-legend";
-        const atomicNumberLabel = this.translate("ATOMIC_NUMBER");
-        const shellsLabel = this.translate("SHELLS");
-        legend.innerText = `${atomicNumberLabel}: ${element.number} · ${shellsLabel}: ${shells.join("-")}`;
-        details.appendChild(legend);
-      }
-
+      const details = this.createDetailsSection(element, symbol, shells);
       wrapper.appendChild(details);
     }
 

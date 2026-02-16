@@ -54,6 +54,10 @@ Add the following block to your `config.js` file and adjust the options as neede
 | `showLabel`            | `boolean`  | `true`  | Show element name and symbol                                       |
 | `showLegend`           | `boolean`  | `true`  | Show atomic number and shell distribution                          |
 
+## Code of Conduct
+
+Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
+
 ## License
 
 This module is licensed under the MIT License. See [LICENSE.md](LICENSE.md) for details.

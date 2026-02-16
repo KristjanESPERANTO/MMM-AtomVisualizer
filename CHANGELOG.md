@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.1.2](https://github.com/KristjanESPERANTO/MMM-AtomVisualizer/compare/v0.1.1...v0.1.2) (2026-02-16)
+
+
+### Chores
+
+* add cspell config ([d15f616](https://github.com/KristjanESPERANTO/MMM-AtomVisualizer/commit/d15f6165334c6fa0d9289f499f14e8eb4dc571c9))
+* add demo config and script ([0a97b26](https://github.com/KristjanESPERANTO/MMM-AtomVisualizer/commit/0a97b26f8576294f5623ed460238f65f94010bed))
+
+
+### Code Refactoring
+
+* break down getDom method into smaller helper functions ([7549ef4](https://github.com/KristjanESPERANTO/MMM-AtomVisualizer/commit/7549ef4d1e6ca780a100658b6b0dfa56a46180de))
+
+
+### Tests
+
+* add unit tests for core functions ([d05e32c](https://github.com/KristjanESPERANTO/MMM-AtomVisualizer/commit/d05e32c36aac4c3a6ceabe85fcda20692afe5d2a))
+
 ## 0.1.1 (2026-02-16)
 
 

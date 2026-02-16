@@ -1,0 +1,23 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "words": [
+    "atomvisualizer",
+    "Aufbau",
+    "Copernicium",
+    "Darmstadtium",
+    "Flerovium",
+    "Kristjan",
+    "Livermorium",
+    "Moscovium",
+    "Nihonium",
+    "Oganesson",
+    "Ordnungszahl",
+    "Roentgenium",
+    "Schalen",
+    "Tennessine",
+    "Unbekanntes"
+  ],
+  "ignorePaths": ["node_modules/**"],
+  "dictionaries": ["node"]
+}

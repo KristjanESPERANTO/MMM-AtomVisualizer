@@ -111,9 +111,20 @@ Module.register("MMM-AtomVisualizer", {
 
   getTranslations () {
     return {
+      de: "translations/de.json",
       en: "translations/en.json",
-      de: "translations/de.json"
+      nl: "translations/nl.json"
     };
+  },
+
+  getElementName (element, symbol) {
+    const key = `ELEMENT_${symbol}`;
+    const translated = this.translate(key);
+
+    // If translate() returns the key itself, it has no translation — fall back to English name
+    return translated === key
+      ? element.name
+      : translated;
   },
 
   sanitizeConfig () {
@@ -326,7 +337,7 @@ Module.register("MMM-AtomVisualizer", {
     if (this.config.showLabel) {
       const label = document.createElement("div");
       label.className = "atom-label";
-      label.innerText = `${element.name} (${symbol})`;
+      label.innerText = `${this.getElementName(element, symbol)} (${symbol})`;
       details.appendChild(label);
     }
 

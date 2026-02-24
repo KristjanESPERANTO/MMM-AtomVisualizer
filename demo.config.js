@@ -2,6 +2,7 @@ const config = {
   address: "0.0.0.0",
   ipWhitelist: [],
   logLevel: ["INFO", "LOG", "WARN", "ERROR", "DEBUG"],
+  language: "de",
   modules: [
     {
       module: "clock",

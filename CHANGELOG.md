@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.1.3](https://github.com/KristjanESPERANTO/MMM-AtomVisualizer/compare/v0.1.2...v0.1.3) (2026-02-24)
+
+
+### Added
+
+* bundle element data and add translatable detail grid ([be9e09e](https://github.com/KristjanESPERANTO/MMM-AtomVisualizer/commit/be9e09eba65738c10dc2830cf4d8ab239173d73f))
+* **i18n:** add localized element names via translation files ([7240b2c](https://github.com/KristjanESPERANTO/MMM-AtomVisualizer/commit/7240b2c7bb6263da90fdc81851ea9752a509b09a))
+
+
+### Chores
+
+* update devDependencies ([23c99b5](https://github.com/KristjanESPERANTO/MMM-AtomVisualizer/commit/23c99b50cc00331194f2ae090e67817b4e07626d))
+
 ## [0.1.2](https://github.com/KristjanESPERANTO/MMM-AtomVisualizer/compare/v0.1.1...v0.1.2) (2026-02-16)
 
 

@@ -9,6 +9,7 @@ import packageJson from "eslint-plugin-package-json";
 import stylistic from "@stylistic/eslint-plugin";
 
 export default defineConfig([
+  {ignores: ["data/build_elements.mjs"]},
   {files: ["**/*.css"], languageOptions: {tolerant: true}, plugins: {css}, language: "css/css", extends: ["css/recommended"], rules: {"css/use-baseline": ["error", {available: "newly"}]}},
   {
     files: ["**/*.js", "**/*.mjs"],

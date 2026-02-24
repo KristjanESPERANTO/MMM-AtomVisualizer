@@ -171,9 +171,29 @@
   color: #fff;
 }
 
-.MMM-AtomVisualizer .atom-legend {
-  font-size: 0.85rem;
+.MMM-AtomVisualizer .atom-details-extra {
+  font-size: 0.8rem;
+  color: #9ba3b2;
+}
+
+.MMM-AtomVisualizer .atom-detail-grid {
+  display: grid;
+  grid-template-columns: auto auto;
+  column-gap: 8px;
+  row-gap: 1px;
+  justify-content: center;
+  margin-top: 4px;
+  font-size: 0.8rem;
+}
+
+.MMM-AtomVisualizer .atom-detail-key {
+  color: #6b7280;
+  text-align: right;
+}
+
+.MMM-AtomVisualizer .atom-detail-val {
   color: #c4c9d6;
+  text-align: left;
 }
 
 @keyframes atom-electron-spin {

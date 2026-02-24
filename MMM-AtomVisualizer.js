@@ -1,74 +1,4 @@
-/* global Module */
-
-const ELEMENT_LIST = [
-  ["H", "Hydrogen"], ["He", "Helium"], ["Li", "Lithium"], ["Be", "Beryllium"], ["B", "Boron"], ["C", "Carbon"],
-  ["N", "Nitrogen"], ["O", "Oxygen"], ["F", "Fluorine"], ["Ne", "Neon"], ["Na", "Sodium"], ["Mg", "Magnesium"],
-  ["Al", "Aluminum"], ["Si", "Silicon"], ["P", "Phosphorus"], ["S", "Sulfur"], ["Cl", "Chlorine"], ["Ar", "Argon"],
-  ["K", "Potassium"], ["Ca", "Calcium"], ["Sc", "Scandium"], ["Ti", "Titanium"], ["V", "Vanadium"], ["Cr", "Chromium"],
-  ["Mn", "Manganese"], ["Fe", "Iron"], ["Co", "Cobalt"], ["Ni", "Nickel"], ["Cu", "Copper"], ["Zn", "Zinc"],
-  ["Ga", "Gallium"], ["Ge", "Germanium"], ["As", "Arsenic"], ["Se", "Selenium"], ["Br", "Bromine"], ["Kr", "Krypton"],
-  ["Rb", "Rubidium"], ["Sr", "Strontium"], ["Y", "Yttrium"], ["Zr", "Zirconium"], ["Nb", "Niobium"], ["Mo", "Molybdenum"],
-  ["Tc", "Technetium"], ["Ru", "Ruthenium"], ["Rh", "Rhodium"], ["Pd", "Palladium"], ["Ag", "Silver"], ["Cd", "Cadmium"],
-  ["In", "Indium"], ["Sn", "Tin"], ["Sb", "Antimony"], ["Te", "Tellurium"], ["I", "Iodine"], ["Xe", "Xenon"],
-  ["Cs", "Cesium"], ["Ba", "Barium"], ["La", "Lanthanum"], ["Ce", "Cerium"], ["Pr", "Praseodymium"], ["Nd", "Neodymium"],
-  ["Pm", "Promethium"], ["Sm", "Samarium"], ["Eu", "Europium"], ["Gd", "Gadolinium"], ["Tb", "Terbium"], ["Dy", "Dysprosium"],
-  ["Ho", "Holmium"], ["Er", "Erbium"], ["Tm", "Thulium"], ["Yb", "Ytterbium"], ["Lu", "Lutetium"], ["Hf", "Hafnium"],
-  ["Ta", "Tantalum"], ["W", "Tungsten"], ["Re", "Rhenium"], ["Os", "Osmium"], ["Ir", "Iridium"], ["Pt", "Platinum"],
-  ["Au", "Gold"], ["Hg", "Mercury"], ["Tl", "Thallium"], ["Pb", "Lead"], ["Bi", "Bismuth"], ["Po", "Polonium"],
-  ["At", "Astatine"], ["Rn", "Radon"], ["Fr", "Francium"], ["Ra", "Radium"], ["Ac", "Actinium"], ["Th", "Thorium"],
-  ["Pa", "Protactinium"], ["U", "Uranium"], ["Np", "Neptunium"], ["Pu", "Plutonium"], ["Am", "Americium"], ["Cm", "Curium"],
-  ["Bk", "Berkelium"], ["Cf", "Californium"], ["Es", "Einsteinium"], ["Fm", "Fermium"], ["Md", "Mendelevium"], ["No", "Nobelium"],
-  ["Lr", "Lawrencium"], ["Rf", "Rutherfordium"], ["Db", "Dubnium"], ["Sg", "Seaborgium"], ["Bh", "Bohrium"], ["Hs", "Hassium"],
-  ["Mt", "Meitnerium"], ["Ds", "Darmstadtium"], ["Rg", "Roentgenium"], ["Cn", "Copernicium"], ["Nh", "Nihonium"], ["Fl", "Flerovium"],
-  ["Mc", "Moscovium"], ["Lv", "Livermorium"], ["Ts", "Tennessine"], ["Og", "Oganesson"]
-];
-
-const ELEMENTS = Object.fromEntries(ELEMENT_LIST.map(([symbol, name], index) => [symbol, {number: index + 1, name}]));
-
-const ORBITALS = [
-  {id: "1s", n: 1, capacity: 2},
-  {id: "2s", n: 2, capacity: 2},
-  {id: "2p", n: 2, capacity: 6},
-  {id: "3s", n: 3, capacity: 2},
-  {id: "3p", n: 3, capacity: 6},
-  {id: "4s", n: 4, capacity: 2},
-  {id: "3d", n: 3, capacity: 10},
-  {id: "4p", n: 4, capacity: 6},
-  {id: "5s", n: 5, capacity: 2},
-  {id: "4d", n: 4, capacity: 10},
-  {id: "5p", n: 5, capacity: 6},
-  {id: "6s", n: 6, capacity: 2},
-  {id: "4f", n: 4, capacity: 14},
-  {id: "5d", n: 5, capacity: 10},
-  {id: "6p", n: 6, capacity: 6},
-  {id: "7s", n: 7, capacity: 2},
-  {id: "5f", n: 5, capacity: 14},
-  {id: "6d", n: 6, capacity: 10},
-  {id: "7p", n: 7, capacity: 6}
-];
-
-const EXCEPTIONAL_ORBITALS = {
-  24: {"4s": 1, "3d": 5},
-  29: {"4s": 1, "3d": 10},
-  41: {"5s": 1, "4d": 4},
-  42: {"5s": 1, "4d": 5},
-  44: {"5s": 1, "4d": 7},
-  45: {"5s": 1, "4d": 8},
-  46: {"5s": 0, "4d": 10},
-  47: {"5s": 1, "4d": 10},
-  57: {"4f": 0, "5d": 1},
-  58: {"4f": 1, "5d": 1},
-  64: {"4f": 7, "5d": 1},
-  78: {"6s": 1, "5d": 9},
-  79: {"6s": 1, "5d": 10},
-  89: {"5f": 0, "6d": 1},
-  90: {"5f": 0, "6d": 2},
-  91: {"5f": 2, "6d": 1},
-  92: {"5f": 3, "6d": 1},
-  93: {"5f": 4, "6d": 1},
-  96: {"5f": 7, "6d": 1},
-  103: {"6d": 0, "7p": 1}
-};
+/* global Module, ELEMENTS_DATA */
 
 Module.register("MMM-AtomVisualizer", {
   defaults: {
@@ -85,7 +15,14 @@ Module.register("MMM-AtomVisualizer", {
     autoRotate: true,
     rotationDuration: 42,
     showLabel: true,
-    showLegend: true
+    showAtomicNumber: true,
+    showShells: true,
+    showAtomicMass: true,
+    showCategory: true,
+    showCas: true,
+    showPhase: true,
+    showElectronegativity: true,
+    showDiscoveredBy: true
   },
 
   start () {
@@ -107,6 +44,10 @@ Module.register("MMM-AtomVisualizer", {
 
   getStyles () {
     return ["MMM-AtomVisualizer.css"];
+  },
+
+  getScripts () {
+    return [this.file("data/elements.js")];
   },
 
   getTranslations () {
@@ -183,7 +124,7 @@ Module.register("MMM-AtomVisualizer", {
     }
 
     const normalized = symbol.trim();
-    const entries = Object.keys(ELEMENTS);
+    const entries = Object.keys(ELEMENTS_DATA);
     const match = entries.find((item) => item.toLowerCase() === normalized.toLowerCase());
 
     return match || "C";
@@ -194,59 +135,6 @@ Module.register("MMM-AtomVisualizer", {
       const j = Math.floor(Math.random() * (i + 1));
       [array[i], array[j]] = [array[j], array[i]];
     }
-  },
-
-  getShellDistribution (atomicNumber) {
-    const orbitalOccupancy = {};
-    const exception = EXCEPTIONAL_ORBITALS[atomicNumber];
-
-    // Initialize all orbitals to 0
-    ORBITALS.forEach((orbital) => {
-      orbitalOccupancy[orbital.id] = 0;
-    });
-
-    // Apply exceptions first if they exist
-    let placedElectrons = 0;
-    if (exception) {
-      Object.entries(exception).forEach(([orbitalId, count]) => {
-        orbitalOccupancy[orbitalId] = count;
-        placedElectrons += count;
-      });
-    }
-
-    // Fill remaining electrons according to Aufbau principle
-    let remaining = atomicNumber - placedElectrons;
-
-    if (remaining > 0) {
-      for (const orbital of ORBITALS) {
-        // If this orbital was already handled by exception, skip it or fill only remainder?
-        // Simple approach: Only fill if not defined in exception (or if we want to add to it, but standard exceptions usually define the full state of the outer shells)
-        // Better scientific approach: Exceptions usually affect specific outer shells. Inner shells stay standard.
-        // But since we track "remaining", we must be careful not to double fill.
-
-        // Fix: Simply fill up to capacity, but respect pre-filled values
-        if (!exception || typeof exception[orbital.id] === "undefined") {
-          const capacity = orbital.capacity;
-          const current = orbitalOccupancy[orbital.id];
-          const canTake = capacity - current;
-          const take = Math.min(canTake, remaining);
-
-          orbitalOccupancy[orbital.id] += take;
-          remaining -= take;
-
-          if (remaining <= 0) {
-            break;
-          }
-        }
-      }
-    }
-
-    const shells = [0, 0, 0, 0, 0, 0, 0];
-    ORBITALS.forEach((orbital) => {
-      shells[orbital.n - 1] += orbitalOccupancy[orbital.id] || 0;
-    });
-
-    return shells.filter((count) => count > 0);
   },
 
   createShellElements (shells) {
@@ -330,7 +218,7 @@ Module.register("MMM-AtomVisualizer", {
     return atom;
   },
 
-  createDetailsSection (element, symbol, shells) {
+  createDetailsSection (element, symbol) {
     const details = document.createElement("div");
     details.className = "atom-details";
 
@@ -341,16 +229,61 @@ Module.register("MMM-AtomVisualizer", {
       details.appendChild(label);
     }
 
-    if (this.config.showLegend) {
-      const legend = document.createElement("div");
-      legend.className = "atom-legend";
-      const atomicNumberLabel = this.translate("ATOMIC_NUMBER");
-      const shellsLabel = this.translate("SHELLS");
-      legend.innerText = `${atomicNumberLabel}: ${element.number} · ${shellsLabel}: ${shells.join("-")}`;
-      details.appendChild(legend);
+    const extraItems = this.buildDetailsItems(element);
+    if (extraItems.length > 0) {
+      const grid = document.createElement("div");
+      grid.className = "atom-detail-grid";
+      for (const {label, value} of extraItems) {
+        const keySpan = document.createElement("span");
+        keySpan.className = "atom-detail-key";
+        keySpan.innerText = label;
+        const valSpan = document.createElement("span");
+        valSpan.className = "atom-detail-val";
+        valSpan.innerText = value;
+        grid.appendChild(keySpan);
+        grid.appendChild(valSpan);
+      }
+      details.appendChild(grid);
     }
 
     return details;
+  },
+
+  buildDetailsItems (element) {
+    const fields = [
+      {key: "showAtomicNumber", translateKey: "ATOMIC_NUMBER", format: (v) => String(v)},
+      {key: "showShells", translateKey: "SHELLS", format: (v) => v.join("-")},
+      {key: "showAtomicMass", translateKey: "DETAIL_ATOMIC_MASS", format: (v) => `${v} u`},
+      {key: "showCategory", translateKey: "DETAIL_CATEGORY", format: (v) => this.translate(this.categoryKey(v))},
+      {key: "showCas", translateKey: "DETAIL_CAS", format: (v) => v},
+      {key: "showPhase", translateKey: "DETAIL_PHASE", format: (v) => this.translate(`PHASE_${v.toUpperCase()}`)},
+      {key: "showElectronegativity", translateKey: "DETAIL_ELECTRONEGATIVITY", format: (v) => v},
+      {key: "showDiscoveredBy", translateKey: "DETAIL_DISCOVERED_BY", format: (v) => v}
+    ];
+
+    const dataKeyOf = {
+      showAtomicNumber: "number",
+      showShells: "shells",
+      showAtomicMass: "atomicMass",
+      showCategory: "category",
+      showCas: "cas",
+      showPhase: "phase",
+      showElectronegativity: "electronegativity",
+      showDiscoveredBy: "discoveredBy"
+    };
+
+    const parts = fields
+      .filter(({key}) => this.config[key] && element[dataKeyOf[key]] !== null && typeof element[dataKeyOf[key]] !== "undefined")
+      .map(({key, translateKey, format}) => ({label: this.translate(translateKey), value: format(element[dataKeyOf[key]])}));
+
+    return parts;
+  },
+
+  categoryKey (category) {
+    return `CATEGORY_${category
+      .replace(/, (?:predicted to be|probably) /u, "_")
+      .replace(/[\s,.-]+/gu, "_")
+      .toUpperCase()}`;
   },
 
   getDom () {
@@ -358,19 +291,20 @@ Module.register("MMM-AtomVisualizer", {
     wrapper.className = "mmm-atom-visualizer";
 
     const symbol = this.resolveSymbol(this.activeSymbol || this.config.element);
-    const element = ELEMENTS[symbol];
+    const element = ELEMENTS_DATA[symbol];
 
     if (!element) {
       wrapper.innerText = this.translate("ATOM_UNKNOWN");
       return wrapper;
     }
 
-    const shells = this.getShellDistribution(element.number);
+    const shells = element.shells;
     const atom = this.createAtomStage(symbol, shells);
     wrapper.appendChild(atom);
 
-    if (this.config.showLabel || this.config.showLegend) {
-      const details = this.createDetailsSection(element, symbol, shells);
+    const showKeys = ["showLabel", "showAtomicNumber", "showShells", "showAtomicMass", "showCategory", "showCas", "showPhase", "showElectronegativity", "showDiscoveredBy"];
+    if (showKeys.some((key) => this.config[key])) {
+      const details = this.createDetailsSection(element, symbol);
       wrapper.appendChild(details);
     }
 

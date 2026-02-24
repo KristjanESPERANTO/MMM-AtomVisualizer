@@ -40,7 +40,8 @@ const context = vm.createContext({
   setTimeout: global.setTimeout,
   clearTimeout: global.clearTimeout,
   setInterval: global.setInterval,
-  clearInterval: global.clearInterval
+  clearInterval: global.clearInterval,
+  ELEMENTS_DATA: JSON.parse(readFileSync(join(__dirname, "../../data/elements.json"), "utf8"))
 });
 script.runInContext(context);
 
@@ -64,8 +65,16 @@ describe("MMM-AtomVisualizer Core Functions", () => {
       autoRotate: true,
       rotationDuration: 42,
       showLabel: true,
-      showLegend: true
+      showAtomicNumber: true,
+      showShells: true,
+      showAtomicMass: true,
+      showCategory: true,
+      showCas: true,
+      showPhase: true,
+      showElectronegativity: true,
+      showDiscoveredBy: true
     };
+    instance.translate = (key) => key;
   });
 
   describe("resolveSymbol", () => {
@@ -180,60 +189,64 @@ describe("MMM-AtomVisualizer Core Functions", () => {
     });
   });
 
-  describe("getShellDistribution", () => {
-    it("should return correct shell distribution for Hydrogen (1)", () => {
-      const shells = instance.getShellDistribution(1);
-      assert.strictEqual(JSON.stringify(shells), JSON.stringify([1]));
+  describe("categoryKey", () => {
+    it("should convert simple categories", () => {
+      assert.equal(instance.categoryKey("actinide"), "CATEGORY_ACTINIDE");
+      assert.equal(instance.categoryKey("noble gas"), "CATEGORY_NOBLE_GAS");
+      assert.equal(instance.categoryKey("transition metal"), "CATEGORY_TRANSITION_METAL");
+      assert.equal(instance.categoryKey("post-transition metal"), "CATEGORY_POST_TRANSITION_METAL");
     });
 
-    it("should return correct shell distribution for Helium (2)", () => {
-      const shells = instance.getShellDistribution(2);
-      assert.strictEqual(JSON.stringify(shells), JSON.stringify([2]));
+    it("should handle unknown variants", () => {
+      assert.equal(instance.categoryKey("unknown, predicted to be noble gas"), "CATEGORY_UNKNOWN_NOBLE_GAS");
+      assert.equal(instance.categoryKey("unknown, probably metalloid"), "CATEGORY_UNKNOWN_METALLOID");
+      assert.equal(instance.categoryKey("unknown, probably post-transition metal"), "CATEGORY_UNKNOWN_POST_TRANSITION_METAL");
+    });
+  });
+
+  describe("buildDetailsItems", () => {
+    it("should return empty array when all data fields are disabled", () => {
+      instance.config.showAtomicMass = false;
+      instance.config.showCategory = false;
+      instance.config.showCas = false;
+      instance.config.showPhase = false;
+      instance.config.showElectronegativity = false;
+      instance.config.showDiscoveredBy = false;
+      const result = instance.buildDetailsItems({atomicMass: 12.011, cas: "7440-44-0"});
+      assert.strictEqual(JSON.stringify(result), JSON.stringify([]));
     });
 
-    it("should return correct shell distribution for Carbon (6)", () => {
-      const shells = instance.getShellDistribution(6);
-      assert.strictEqual(JSON.stringify(shells), JSON.stringify([2, 4]));
+    it("should return single-item array for one enabled field", () => {
+      instance.config.showAtomicMass = true;
+      instance.config.showCategory = false;
+      instance.config.showCas = false;
+      instance.config.showPhase = false;
+      instance.config.showElectronegativity = false;
+      instance.config.showDiscoveredBy = false;
+      const result = instance.buildDetailsItems({atomicMass: 12.011});
+      assert.strictEqual(JSON.stringify(result), JSON.stringify([{label: "DETAIL_ATOMIC_MASS", value: "12.011 u"}]));
     });
 
-    it("should return correct shell distribution for Oxygen (8)", () => {
-      const shells = instance.getShellDistribution(8);
-      assert.strictEqual(JSON.stringify(shells), JSON.stringify([2, 6]));
+    it("should return array with one entry per enabled field", () => {
+      instance.config.showAtomicMass = true;
+      instance.config.showCategory = false;
+      instance.config.showCas = true;
+      instance.config.showPhase = false;
+      instance.config.showElectronegativity = false;
+      instance.config.showDiscoveredBy = false;
+      const result = instance.buildDetailsItems({atomicMass: 1.008, cas: "12385-13-6"});
+      assert.strictEqual(JSON.stringify(result), JSON.stringify([{label: "DETAIL_ATOMIC_MASS", value: "1.008 u"}, {label: "DETAIL_CAS", value: "12385-13-6"}]));
     });
 
-    it("should return correct shell distribution for Neon (10)", () => {
-      const shells = instance.getShellDistribution(10);
-      assert.strictEqual(JSON.stringify(shells), JSON.stringify([2, 8]));
-    });
-
-    it("should return correct shell distribution for Sodium (11)", () => {
-      const shells = instance.getShellDistribution(11);
-      assert.strictEqual(JSON.stringify(shells), JSON.stringify([2, 8, 1]));
-    });
-
-    it("should return correct shell distribution for Iron (26)", () => {
-      const shells = instance.getShellDistribution(26);
-      assert.strictEqual(JSON.stringify(shells), JSON.stringify([2, 8, 14, 2]));
-    });
-
-    it("should handle exceptional orbital configuration for Chromium (24)", () => {
-      const shells = instance.getShellDistribution(24);
-      assert.strictEqual(JSON.stringify(shells), JSON.stringify([2, 8, 13, 1]));
-    });
-
-    it("should handle exceptional orbital configuration for Copper (29)", () => {
-      const shells = instance.getShellDistribution(29);
-      assert.strictEqual(JSON.stringify(shells), JSON.stringify([2, 8, 18, 1]));
-    });
-
-    it("should return correct shell distribution for Silver (47)", () => {
-      const shells = instance.getShellDistribution(47);
-      assert.strictEqual(JSON.stringify(shells), JSON.stringify([2, 8, 18, 18, 1]));
-    });
-
-    it("should return correct shell distribution for Gold (79)", () => {
-      const shells = instance.getShellDistribution(79);
-      assert.strictEqual(JSON.stringify(shells), JSON.stringify([2, 8, 18, 32, 18, 1]));
+    it("should skip enabled fields with null values", () => {
+      instance.config.showAtomicMass = true;
+      instance.config.showCategory = false;
+      instance.config.showCas = false;
+      instance.config.showPhase = false;
+      instance.config.showElectronegativity = true;
+      instance.config.showDiscoveredBy = false;
+      const result = instance.buildDetailsItems({atomicMass: 226, electronegativity: null});
+      assert.strictEqual(JSON.stringify(result), JSON.stringify([{label: "DETAIL_ATOMIC_MASS", value: "226 u"}]));
     });
   });
 

@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.1.4](https://github.com/KristjanESPERANTO/MMM-AtomVisualizer/compare/v0.1.3...v0.1.4) (2026-03-25)
+
+
+### Added
+
+* **i18n:** use English as fallback language ([ea9a873](https://github.com/KristjanESPERANTO/MMM-AtomVisualizer/commit/ea9a873ef53780297f4bbdfa4169ad65f44019dd))
+
+
+### Chores
+
+* simplify prepare script ([221e8dc](https://github.com/KristjanESPERANTO/MMM-AtomVisualizer/commit/221e8dc45305096af156a9e42c9a7329caa02793))
+* update devDependencies ([8cb77af](https://github.com/KristjanESPERANTO/MMM-AtomVisualizer/commit/8cb77af408bde2beeea36ef4094e942010dd8571))
+
 ## [0.1.3](https://github.com/KristjanESPERANTO/MMM-AtomVisualizer/compare/v0.1.2...v0.1.3) (2026-02-24)
 
 

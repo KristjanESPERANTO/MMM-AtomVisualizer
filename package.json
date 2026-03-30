@@ -1,6 +1,6 @@
 {
   "name": "mmm-atomvisualizer",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "A MagicMirror² module that renders animated atoms in Bohr-style model with scientifically accurate electron shells.",
   "keywords": [
     "MagicMirror",

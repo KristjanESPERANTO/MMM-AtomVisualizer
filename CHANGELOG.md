@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.1.5](https://github.com/KristjanESPERANTO/MMM-AtomVisualizer/compare/v0.1.4...v0.1.5) (2026-03-30)
+
+
+### Added
+
+* allow empty element list to cycle through all atoms ([24ddffd](https://github.com/KristjanESPERANTO/MMM-AtomVisualizer/commit/24ddffdbdf6b3182702fd8d9d043e4e6b2d8861a))
+
+
+### Chores
+
+* update devDependencies ([a21548d](https://github.com/KristjanESPERANTO/MMM-AtomVisualizer/commit/a21548d7d8dc63056c0a53ec10c90e25b6ddbdc3))
+
 ## [0.1.4](https://github.com/KristjanESPERANTO/MMM-AtomVisualizer/compare/v0.1.3...v0.1.4) (2026-03-25)
 
 

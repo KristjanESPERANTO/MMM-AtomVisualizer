@@ -37,29 +37,29 @@ Add the following block to your `config.js` file and adjust the options as neede
 
 ## Options
 
-| Option                  | Type       | Default | Description                                                        |
-| ----------------------- | ---------- | ------- | ------------------------------------------------------------------ |
-| `element`               | `string`   | `"C"`   | Element symbol to display                                          |
-| `elements`              | `string[]` | `[...]` | Element list used when `cycleElements` is enabled                  |
-| `cycleElements`         | `boolean`  | `true`  | Automatically cycle through `elements`                             |
-| `shuffleElements`       | `boolean`  | `true`  | Randomize element order when cycling starts (Fisher-Yates shuffle) |
-| `cycleEvery`            | `number`   | `60`    | Cycle interval in seconds                                          |
-| `size`                  | `number`   | `240`   | Atom size in pixels                                                |
-| `nucleusScale`          | `number`   | `0.22`  | Nucleus-to-atom size ratio                                         |
-| `electronSize`          | `number`   | `7`     | Electron size in pixels                                            |
-| `electronSpeed`         | `number`   | `10`    | Base electron revolution duration (seconds)                        |
-| `mixedOrbitDirections`  | `boolean`  | `true`  | Alternate electron direction per shell for visual depth            |
-| `autoRotate`            | `boolean`  | `true`  | Slowly rotate shell system                                         |
-| `rotationDuration`      | `number`   | `42`    | Duration of one shell system rotation in seconds                   |
-| `showLabel`             | `boolean`  | `true`  | Show element name and symbol                                       |
-| `showAtomicNumber`      | `boolean`  | `true`  | Show atomic number                                                 |
-| `showShells`            | `boolean`  | `true`  | Show shell distribution (e.g. 2-8-6)                               |
-| `showAtomicMass`        | `boolean`  | `true`  | Show atomic mass                                                   |
-| `showCategory`          | `boolean`  | `true`  | Show element category                                              |
-| `showCas`               | `boolean`  | `true`  | Show CAS registry number                                           |
-| `showPhase`             | `boolean`  | `true`  | Show phase (solid / liquid / gas)                                  |
-| `showElectronegativity` | `boolean`  | `true`  | Show electronegativity (Pauling scale)                             |
-| `showDiscoveredBy`      | `boolean`  | `true`  | Show discoverer                                                    |
+| Option                  | Type       | Default | Description                                                                                             |
+| ----------------------- | ---------- | ------- | ------------------------------------------------------------------------------------------------------- |
+| `element`               | `string`   | `"C"`   | Element symbol to display                                                                               |
+| `elements`              | `string[]` | `[]`    | Element list used when `cycleElements` is enabled. An empty array cycles through all available elements |
+| `cycleElements`         | `boolean`  | `true`  | Automatically cycle through `elements`                                                                  |
+| `shuffleElements`       | `boolean`  | `true`  | Randomize element order when cycling starts (Fisher-Yates shuffle)                                      |
+| `cycleEvery`            | `number`   | `60`    | Cycle interval in seconds                                                                               |
+| `size`                  | `number`   | `240`   | Atom size in pixels                                                                                     |
+| `nucleusScale`          | `number`   | `0.22`  | Nucleus-to-atom size ratio                                                                              |
+| `electronSize`          | `number`   | `7`     | Electron size in pixels                                                                                 |
+| `electronSpeed`         | `number`   | `10`    | Base electron revolution duration (seconds)                                                             |
+| `mixedOrbitDirections`  | `boolean`  | `true`  | Alternate electron direction per shell for visual depth                                                 |
+| `autoRotate`            | `boolean`  | `true`  | Slowly rotate shell system                                                                              |
+| `rotationDuration`      | `number`   | `42`    | Duration of one shell system rotation in seconds                                                        |
+| `showLabel`             | `boolean`  | `true`  | Show element name and symbol                                                                            |
+| `showAtomicNumber`      | `boolean`  | `true`  | Show atomic number                                                                                      |
+| `showShells`            | `boolean`  | `true`  | Show shell distribution (e.g. 2-8-6)                                                                    |
+| `showAtomicMass`        | `boolean`  | `true`  | Show atomic mass                                                                                        |
+| `showCategory`          | `boolean`  | `true`  | Show element category                                                                                   |
+| `showCas`               | `boolean`  | `true`  | Show CAS registry number                                                                                |
+| `showPhase`             | `boolean`  | `true`  | Show phase (solid / liquid / gas)                                                                       |
+| `showElectronegativity` | `boolean`  | `true`  | Show electronegativity (Pauling scale)                                                                  |
+| `showDiscoveredBy`      | `boolean`  | `true`  | Show discoverer                                                                                         |
 
 ## Code of Conduct
 

@@ -175,10 +175,12 @@ describe("MMM-AtomVisualizer Core Functions", () => {
       assert.deepEqual(instance.config.elements, ["H", "C"]);
     });
 
-    it("should default to C if elements array is empty", () => {
+    it("should use all elements if elements array is empty", () => {
       instance.config.elements = [];
       instance.sanitizeConfig();
-      assert.strictEqual(JSON.stringify(instance.config.elements), JSON.stringify(["C"]));
+      assert.strictEqual(instance.config.elements[0], "H");
+      assert.strictEqual(instance.config.elements.at(-1), "Og");
+      assert.ok(instance.config.elements.length > 100);
     });
 
     it("should use config.element if elements is not an array", () => {

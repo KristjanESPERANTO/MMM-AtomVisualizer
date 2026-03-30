@@ -3,7 +3,7 @@
 Module.register("MMM-AtomVisualizer", {
   defaults: {
     element: "C",
-    elements: ["H", "He", "Li", "C", "N", "O", "Ne", "Na", "Fe", "Cu", "Ag", "Xe"],
+    elements: [],
     cycleElements: true,
     shuffleElements: true,
     cycleEvery: 60,
@@ -88,8 +88,12 @@ Module.register("MMM-AtomVisualizer", {
       ? Math.max(10, this.config.cycleEvery)
       : 60;
 
-    if (!Array.isArray(this.config.elements) || this.config.elements.length === 0) {
+    if (!Array.isArray(this.config.elements)) {
       this.config.elements = [this.config.element];
+    }
+
+    if (this.config.elements.length === 0) {
+      this.config.elements = Object.keys(ELEMENTS_DATA);
     }
 
     this.config.elements = this.config.elements

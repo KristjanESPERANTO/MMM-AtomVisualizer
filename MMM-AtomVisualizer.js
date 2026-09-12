@@ -26,6 +26,8 @@ Module.register("MMM-AtomVisualizer", {
   },
 
   start () {
+    this.symbolLookup = this.buildSymbolLookup();
+
     this.sanitizeConfig();
 
     if (this.config.shuffleElements && this.config.cycleElements) {
@@ -122,16 +124,22 @@ Module.register("MMM-AtomVisualizer", {
     }, this.config.cycleEvery * 1000);
   },
 
+  // Maps a lowercased symbol (e.g. "na") to its canonical, correctly-cased form (e.g. "Na")
+  buildSymbolLookup () {
+    const lookup = new Map();
+    for (const symbol of Object.keys(ELEMENTS_DATA)) {
+      lookup.set(symbol.toLowerCase(), symbol);
+    }
+    return lookup;
+  },
+
   resolveSymbol (symbol) {
     if (typeof symbol !== "string") {
       return "C";
     }
 
-    const normalized = symbol.trim();
-    const entries = Object.keys(ELEMENTS_DATA);
-    const match = entries.find((item) => item.toLowerCase() === normalized.toLowerCase());
-
-    return match || "C";
+    const normalized = symbol.trim().toLowerCase();
+    return this.symbolLookup.get(normalized) || "C";
   },
 
   shuffleArray (array) {

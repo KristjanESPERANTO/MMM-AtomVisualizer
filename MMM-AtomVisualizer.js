@@ -1,5 +1,8 @@
 /* global Module, ELEMENTS_DATA */
 
+const DETAIL_KEYS = ["showAtomicNumber", "showShells", "showAtomicMass", "showCategory", "showCas", "showPhase", "showElectronegativity", "showDiscoveredBy"];
+const SHOW_KEYS = ["showLabel", ...DETAIL_KEYS];
+
 Module.register("MMM-AtomVisualizer", {
   defaults: {
     element: "C",
@@ -27,6 +30,7 @@ Module.register("MMM-AtomVisualizer", {
 
   start () {
     this.symbolLookup = this.buildSymbolLookup();
+    this.detailFields = this.buildDetailFieldDefinitions();
 
     this.sanitizeConfig();
 
@@ -261,34 +265,24 @@ Module.register("MMM-AtomVisualizer", {
     return details;
   },
 
-  buildDetailsItems (element) {
-    const fields = [
-      {key: "showAtomicNumber", translateKey: "ATOMIC_NUMBER", format: (v) => String(v)},
-      {key: "showShells", translateKey: "SHELLS", format: (v) => v.join("-")},
-      {key: "showAtomicMass", translateKey: "DETAIL_ATOMIC_MASS", format: (v) => `${v} u`},
-      {key: "showCategory", translateKey: "DETAIL_CATEGORY", format: (v) => this.translate(this.categoryKey(v))},
-      {key: "showCas", translateKey: "DETAIL_CAS", format: (v) => v},
-      {key: "showPhase", translateKey: "DETAIL_PHASE", format: (v) => this.translate(`PHASE_${v.toUpperCase()}`)},
-      {key: "showElectronegativity", translateKey: "DETAIL_ELECTRONEGATIVITY", format: (v) => v},
-      {key: "showDiscoveredBy", translateKey: "DETAIL_DISCOVERED_BY", format: (v) => v}
+  // Built once in start() so format() callbacks can close over the module's `this`
+  buildDetailFieldDefinitions () {
+    return [
+      {key: "showAtomicNumber", dataKey: "number", translateKey: "ATOMIC_NUMBER", format: (v) => String(v)},
+      {key: "showShells", dataKey: "shells", translateKey: "SHELLS", format: (v) => v.join("-")},
+      {key: "showAtomicMass", dataKey: "atomicMass", translateKey: "DETAIL_ATOMIC_MASS", format: (v) => `${v} u`},
+      {key: "showCategory", dataKey: "category", translateKey: "DETAIL_CATEGORY", format: (v) => this.translate(this.categoryKey(v))},
+      {key: "showCas", dataKey: "cas", translateKey: "DETAIL_CAS", format: (v) => v},
+      {key: "showPhase", dataKey: "phase", translateKey: "DETAIL_PHASE", format: (v) => this.translate(`PHASE_${v.toUpperCase()}`)},
+      {key: "showElectronegativity", dataKey: "electronegativity", translateKey: "DETAIL_ELECTRONEGATIVITY", format: (v) => v},
+      {key: "showDiscoveredBy", dataKey: "discoveredBy", translateKey: "DETAIL_DISCOVERED_BY", format: (v) => v}
     ];
+  },
 
-    const dataKeyOf = {
-      showAtomicNumber: "number",
-      showShells: "shells",
-      showAtomicMass: "atomicMass",
-      showCategory: "category",
-      showCas: "cas",
-      showPhase: "phase",
-      showElectronegativity: "electronegativity",
-      showDiscoveredBy: "discoveredBy"
-    };
-
-    const parts = fields
-      .filter(({key}) => this.config[key] && element[dataKeyOf[key]] !== null && typeof element[dataKeyOf[key]] !== "undefined")
-      .map(({key, translateKey, format}) => ({label: this.translate(translateKey), value: format(element[dataKeyOf[key]])}));
-
-    return parts;
+  buildDetailsItems (element) {
+    return this.detailFields
+      .filter(({key, dataKey}) => this.config[key] && element[dataKey] !== null && typeof element[dataKey] !== "undefined")
+      .map(({dataKey, translateKey, format}) => ({label: this.translate(translateKey), value: format(element[dataKey])}));
   },
 
   categoryKey (category) {
@@ -314,8 +308,7 @@ Module.register("MMM-AtomVisualizer", {
     const atom = this.createAtomStage(symbol, shells);
     wrapper.appendChild(atom);
 
-    const showKeys = ["showLabel", "showAtomicNumber", "showShells", "showAtomicMass", "showCategory", "showCas", "showPhase", "showElectronegativity", "showDiscoveredBy"];
-    if (showKeys.some((key) => this.config[key])) {
+    if (SHOW_KEYS.some((key) => this.config[key])) {
       const details = this.createDetailsSection(element, symbol);
       wrapper.appendChild(details);
     }

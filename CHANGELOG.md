@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.1.6](https://github.com/KristjanESPERANTO/MMM-AtomVisualizer/compare/v0.1.5...v0.1.6) (2026-09-12)
+
+### Fixed
+
+* clear cycle timer on module stop, not only suspend ([397cd3e](https://github.com/KristjanESPERANTO/MMM-AtomVisualizer/commit/397cd3ec4f8e305f954d0ed8137f0252b3451237))
+
+### Performance Improvements
+
+* build detail field definitions once in start() ([5b33229](https://github.com/KristjanESPERANTO/MMM-AtomVisualizer/commit/5b332297c842ce09b24c6256f735fff46552aebe))
+* cache symbol lookup instead of scanning elements each call ([ef77263](https://github.com/KristjanESPERANTO/MMM-AtomVisualizer/commit/ef772638a80e95f591cdd8a2f89ddebea321cdec))
+
+### Chores
+
+* devDependencies ([ca7ec33](https://github.com/KristjanESPERANTO/MMM-AtomVisualizer/commit/ca7ec33a962788659943cd587b288c31cfb3b62f))
+* update GitHub Actions ([e8c13f4](https://github.com/KristjanESPERANTO/MMM-AtomVisualizer/commit/e8c13f4fe9a5650c6f1975c964c65d3900ef27de))
 ## [0.1.5](https://github.com/KristjanESPERANTO/MMM-AtomVisualizer/compare/v0.1.4...v0.1.5) (2026-03-30)
 
 

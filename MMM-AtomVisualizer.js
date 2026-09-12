@@ -316,6 +316,10 @@ Module.register("MMM-AtomVisualizer", {
     return wrapper;
   },
 
+  stop () {
+    this.suspend();
+  },
+
   suspend () {
     if (this.cycleTimer) {
       clearInterval(this.cycleTimer);

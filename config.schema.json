@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "element": {
+      "type": "string",
+      "description": "Chemical element symbol to display when cycling is disabled"
+    },
+    "elements": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Element symbols to cycle through; an empty list includes all elements"
+    },
+    "cycleElements": {
+      "type": "boolean",
+      "description": "Automatically cycle through the configured elements"
+    },
+    "shuffleElements": {
+      "type": "boolean",
+      "description": "Randomize element order when cycling starts"
+    },
+    "cycleEvery": {
+      "type": "number",
+      "minimum": 10,
+      "description": "Interval between elements in seconds"
+    },
+    "size": {
+      "type": "number",
+      "minimum": 140,
+      "description": "Atom size in pixels"
+    },
+    "nucleusScale": {
+      "type": "number",
+      "minimum": 0.12,
+      "maximum": 0.4,
+      "description": "Nucleus size as a ratio of the atom size"
+    },
+    "electronSize": {
+      "type": "number",
+      "minimum": 4,
+      "description": "Electron size in pixels"
+    },
+    "electronSpeed": {
+      "type": "number",
+      "minimum": 2,
+      "description": "Base electron revolution duration in seconds"
+    },
+    "mixedOrbitDirections": {
+      "type": "boolean",
+      "description": "Alternate electron direction between shells for visual depth"
+    },
+    "autoRotate": {
+      "type": "boolean",
+      "description": "Slowly rotate the shell system"
+    },
+    "rotationDuration": {
+      "type": "number",
+      "minimum": 8,
+      "description": "Duration of one shell-system rotation in seconds"
+    },
+    "showLabel": {
+      "type": "boolean",
+      "description": "Show the element name and symbol"
+    },
+    "showAtomicNumber": {
+      "type": "boolean",
+      "description": "Show the atomic number"
+    },
+    "showShells": {
+      "type": "boolean",
+      "description": "Show the electron-shell distribution"
+    },
+    "showAtomicMass": {
+      "type": "boolean",
+      "description": "Show the atomic mass"
+    },
+    "showCategory": {
+      "type": "boolean",
+      "description": "Show the element category"
+    },
+    "showCas": {
+      "type": "boolean",
+      "description": "Show the CAS registry number"
+    },
+    "showPhase": {
+      "type": "boolean",
+      "description": "Show the element phase"
+    },
+    "showElectronegativity": {
+      "type": "boolean",
+      "description": "Show electronegativity on the Pauling scale"
+    },
+    "showDiscoveredBy": {
+      "type": "boolean",
+      "description": "Show the element discoverer"
+    }
+  }
+}

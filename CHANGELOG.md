@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.1.7](https://github.com/KristjanESPERANTO/MMM-AtomVisualizer/compare/v0.1.6...v0.1.7) (2026-10-20)
+
+### Added
+
+* **config:** add module config schema ([b1f1260](https://github.com/KristjanESPERANTO/MMM-AtomVisualizer/commit/b1f12603bbba65ef0ed89744e7ff594934afb71f))
+
+### Chores
+
+* update devDependencies ([e49b73c](https://github.com/KristjanESPERANTO/MMM-AtomVisualizer/commit/e49b73ceb7fa680b898912b63e294d2752cda559))
+
+### Tests
+
+* initialize module test state ([db04276](https://github.com/KristjanESPERANTO/MMM-AtomVisualizer/commit/db0427611caaccbc2e1c790d3f04f12240bbf35c))
+
 ## [0.1.6](https://github.com/KristjanESPERANTO/MMM-AtomVisualizer/compare/v0.1.5...v0.1.6) (2026-09-12)
 
 ### Fixed

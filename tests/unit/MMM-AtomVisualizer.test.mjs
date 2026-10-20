@@ -74,6 +74,8 @@ describe("MMM-AtomVisualizer Core Functions", () => {
       showElectronegativity: true,
       showDiscoveredBy: true
     };
+    instance.symbolLookup = instance.buildSymbolLookup();
+    instance.detailFields = instance.buildDetailFieldDefinitions();
     instance.translate = (key) => key;
   });
 

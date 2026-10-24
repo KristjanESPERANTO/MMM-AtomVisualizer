@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 window.MMMAtomVisualizerData = {
   H: {
     number: 1,

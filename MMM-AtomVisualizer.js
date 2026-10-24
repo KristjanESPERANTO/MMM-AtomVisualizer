@@ -1,4 +1,4 @@
-/* global Module, ELEMENTS_DATA */
+/* global Module */
 
 const DETAIL_KEYS = ["showAtomicNumber", "showShells", "showAtomicMass", "showCategory", "showCas", "showPhase", "showElectronegativity", "showDiscoveredBy"];
 const SHOW_KEYS = ["showLabel", ...DETAIL_KEYS];
@@ -99,7 +99,7 @@ Module.register("MMM-AtomVisualizer", {
     }
 
     if (this.config.elements.length === 0) {
-      this.config.elements = Object.keys(ELEMENTS_DATA);
+      this.config.elements = Object.keys(window.MMMAtomVisualizerData);
     }
 
     this.config.elements = this.config.elements
@@ -131,7 +131,7 @@ Module.register("MMM-AtomVisualizer", {
   // Maps a lowercased symbol (e.g. "na") to its canonical, correctly-cased form (e.g. "Na")
   buildSymbolLookup () {
     const lookup = new Map();
-    for (const symbol of Object.keys(ELEMENTS_DATA)) {
+    for (const symbol of Object.keys(window.MMMAtomVisualizerData)) {
       lookup.set(symbol.toLowerCase(), symbol);
     }
     return lookup;
@@ -297,7 +297,7 @@ Module.register("MMM-AtomVisualizer", {
     wrapper.className = "mmm-atom-visualizer";
 
     const symbol = this.resolveSymbol(this.activeSymbol || this.config.element);
-    const element = ELEMENTS_DATA[symbol];
+    const element = window.MMMAtomVisualizerData[symbol];
 
     if (!element) {
       wrapper.innerText = this.translate("ATOM_UNKNOWN");

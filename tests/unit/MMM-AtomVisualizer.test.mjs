@@ -35,13 +35,14 @@ const context = vm.createContext({
   Module: global.Module,
   Log: global.Log,
   document: {},
-  window: {},
+  window: {
+    MMMAtomVisualizerData: JSON.parse(readFileSync(join(__dirname, "../../data/elements.json"), "utf8"))
+  },
   console: global.console,
   setTimeout: global.setTimeout,
   clearTimeout: global.clearTimeout,
   setInterval: global.setInterval,
-  clearInterval: global.clearInterval,
-  ELEMENTS_DATA: JSON.parse(readFileSync(join(__dirname, "../../data/elements.json"), "utf8"))
+  clearInterval: global.clearInterval
 });
 script.runInContext(context);
 
